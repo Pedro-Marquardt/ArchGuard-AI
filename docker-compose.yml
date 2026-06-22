@@ -1,0 +1,16 @@
+services:
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: archguard-chromadb
+    ports:
+      - "8000:8000"
+    environment:
+      - CHROMA_SERVER_AUTHN_CREDENTIALS=${CHROMA_TOKEN}
+      - CHROMA_SERVER_AUTHN_CREDENTIALS_PROVIDER=chromadb.auth.token_authn.TokenAuthCredentialsProvider
+      - CHROMA_SERVER_AUTHN_PROVIDER=chromadb.auth.token_authn.TokenAuthenticationServerProvider
+      - CHROMA_AUTH_TOKEN_TRANSPORT_HEADER=Authorization
+    volumes:
+      - chromadb_data:/chroma/chroma
+
+volumes:
+  chromadb_data:
